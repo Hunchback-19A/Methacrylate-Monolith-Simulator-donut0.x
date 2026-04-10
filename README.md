@@ -1,4 +1,5 @@
 # Methacrylate Monolith Simulator
+(Latest release: v.donut1.0.0-beta. See Releases section) 
 
 Desktop app for quickly exploring methacrylate monolith design, pressure behavior, pore structure, and synthesis recipe guidance.
 
