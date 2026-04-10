@@ -187,7 +187,7 @@ Svec, F., & Frechet, J. M. J. (1995). Temperature, a simple and efficient tool f
 
 Yang, C., Wei, Y., Zhang, Q., Zhang, W., Li, T., Hu, H., & Zhang, Y. (2005). Preparation and evaluation of a large-volume radial flow monolithic column. Talanta, 66(2), 472-478. https://doi.org/10.1016/j.talanta.2004.09.027
 
-4) ATTRIBUTIONS
+ATTRIBUTIONS
 ----------------
 Finish page image (Setup exe):
 Title: A three-headed eagle in a crowned alchemical flask (from Splendor Solis tradition)
@@ -197,7 +197,7 @@ Author: Wellcome Collection
 License: Creative Commons Attribution 4.0 International (CC BY 4.0)
 https://creativecommons.org/licenses/by/4.0/
 
-6) NOTES FOR USERS
+NOTES FOR USERS
 -------------------
 - This file is intended as a plain-text, Notepad-friendly reference list (APA 7th).
 - Companion documents in the same folder:
