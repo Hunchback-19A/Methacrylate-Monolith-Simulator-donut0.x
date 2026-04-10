@@ -1,233 +1,164 @@
 # Methacrylate Monolith Simulator
 
-Interactive desktop simulator for methacrylate monolith design, synthesis recipe guidance, pressure-drop prediction, pore-distribution exploration, and 3D visualization.
+Desktop app for quickly exploring methacrylate monolith design, pressure behavior, pore structure, and synthesis recipe guidance.
 
-## What This Simulator Does
+This guide assumes the app is already installed on Windows (packaged EXE, console hidden), like a normal desktop application.
 
-- Creates and edits methacrylate monolith geometries.
-- Predicts back pressure (rigid and compression-aware).
-- Calculates bimodal pore distribution (macro + mesopores).
-- Generates synthesis recipes (GMA-EDMA) with:
-  - composition recommendations,
-  - polymerization temperature guidance,
-  - polymerization (reaction) time estimates,
-  - heat-transfer and risk notes.
-- **Optional flexible recipe mode**: load monomer/porogen structures (`.mol`, `.sdf`, `.cml` from Avogadro, GAMESS exports, etc.); **RDKit** estimates simple HSP parameters, HSP distance Ra, pore-size modifiers, and a short feasibility narrative. This is a **theory-informed screening tool**, not a guarantee of lab outcomes.
-- Visualizes monolith structure in embedded 3D and standalone 3D views.
-- Supports optional Professional Judgment Mode for large monolith recipe checks.
+## Quick Start (2-3 minutes)
 
-### Predictions vs reality
+1. Launch **Methacrylate Monolith Simulator** from the Start menu or desktop shortcut.
+2. Go to `Build -> Methacrylate monolith...`.
+3. Enter geometry + pore settings, then create the monolith.
+4. Run `Analysis -> Bimodal distributions` (recommended before porous/X-ray views).
+5. Then use either:
+   - `Analysis -> Back pressure drop prediction...`, or
+   - `Tools -> Synthesis recipe (GMA–EDMA)`
+6. Explore `View`, `Analysis`, and `Tools` for 3D/flow/recipe features.
+7. Use the toolbar `Graphs` button to open the mechanical property graph tool.
 
-Pressure drop, pore statistics, recipe volumes, and flexible-mode HSP estimates are **educated models** (literature-style correlations, heuristics, and scaling rules). They help explore design space and communicate reasoning; they **do not replace** experiments, SDS review, or your institution’s safety and validation requirements.
+Tip: Most calculations need an active monolith first. Flow/porous features also require porosity greater than 0.
 
-## Main Menus (How To Navigate)
+## What You Can Do
 
-## 1) Objects
+- Build/edit monolith geometry.
+- Predict back pressure (rigid vs compressed pathway model).
+- Calculate bimodal pore distribution (macro + mesopore).
+- Generate synthesis recipes with:
+  - composition guidance,
+  - polymerization temperature,
+  - polymerization (reaction) time estimate,
+  - thermal/risk notes for larger volumes.
+- Optionally use flexible recipe mode (RDKit) from structure files (`.mol`, `.sdf`, `.cml`).
+- Graph raw data and export as editable files or images. 
+- Export and view p(GMA-co-EDMA) crosslink pattern (simulated to a limited extent, might not match experimental reality) in molecular editors such as Avogadro and/or ChemDoodle. 
+- Exports and imports to save your projects and interact with other programs. 
 
-- **Create methacrylate monolith...**
-  - Define porosity, pore size, and geometry.
-- **Edit monolith...**
-  - Modify an existing monolith.
 
-Tip: Most calculations require an active monolith first.
+## Interface Layout (Where to Find Features)
 
-## 2) Calculate
+### 1) Menu Bar (top of app window)
 
-- **Predict back pressure drop...**
-  - Uses monolith and sample/flow parameters.
-- **Bimodal distribution**
-  - Computes macro/mesopore distribution and updates porous view data.
-- **Synthesis recipe (GMA-EDMA)...**
-  - Opens recipe input dialog for process planning (standard GMA–EDMA or **flexible** structure-file mode if RDKit is installed).
+- **File**
+  - Project: `New Project`, `Open Project...`, `Save`, `Save As...`, `Close Project`, `Exit`
+  - Import: `Molecule (.mol, .sdf)`, `Monolith (.pore)`
+  - Export: `Monolith (.pore)`, `Results (.csv)`, `Structured Data (.json)`, `Visualization (.vtk)`, `Export monolithic backbone...`
+  - Graph export: `Export -> Mechanical property graph...` (PNG/JPEG/SVG/CSV/XLSX) when a graph window is open
+- **Edit**
+  - `Undo`, `Redo`, `Delete`, `Edit current monolith`, `Clear log...`, `Clear all...`
+  - Shortcuts: `Ctrl+Z`, `Ctrl+Y`, `Ctrl+Delete`
+- **Build**
+  - `Methacrylate monolith...`
+- **Analysis**
+  - `Back pressure drop prediction...`, `Bimodal distributions`
+  - `2D radial flow`, `2D axial flow`, `3D radial flow`
+- **View**
+  - Toggle bottom bar, coordinate axes, flow panels, fullscreen, and custom cursor
+  - `Reset view` options (`Reset rotation`, `Reset zoom`, `Recenter framing`) + `Reset all`
+  - Toggle `Show/Hide 3D porous view` and `Show/Hide X-ray porous view`
+- **Tools**
+  - `Pores from SEM images (PyVista)...`
+  - `Synthesis recipe (GMA–EDMA)`
+  - `View 3D monolith (PyVista)...`
 
-## 3) View
+### 2) Toolbar (under the menu bar)
 
-- Toggle bottom bar and coordinate widget.
-- Toggle custom cursor.
-- Open 3D views (solid/porous/SEM-based).
-- Toggle radial/axial/radial-3D flow panels.
-- Toggle X-ray porous view.
+- **Undo / Redo icons**
+  - Same actions as `Edit -> Undo/Redo`.
+- **Zoom In / Zoom Out icons**
+  - Change zoom in the embedded 3D monolith view.
+- **Navigation icon**
+  - Orbit/inspect mode for the 3D view (rotation).
+- **Manipulation icon**
+  - Drag/move mode for monolith interaction.
+- **Graphs icon**
+  - Opens the mechanical property graph tool (CSV/Excel import plotting workflow, requires dataset).
+  - After opening a graph, use `File -> Export -> Mechanical property graph...` for image/data export.
 
-## 4) Animate
+### 3) Bottom Bar
 
-- Open animated radial/axial flow panels.
+- Located below the main 3D view.
+- Can be shown/hidden from `View -> Show/Hide bottom bar`.
+- Used for quick context and selection support (including monolith selection/status area).
+- Works together with the coordinate-axes area for orientation feedback.
 
----
+### 4) Coordinate Axes Area
 
-## Quick Start
+- Can be shown/hidden from `View -> Show/Hide coordinate axes`.
+- Helps you track orientation while rotating/zooming the 3D model.
+- Typical interaction flow:
+  - rotate/inspect in the 3D panel,
+  - use `View -> Reset view` options when needed (`Reset rotation`, `Reset zoom`, `Recenter framing`).
 
-1. Go to **Objects -> Create methacrylate monolith...**
-2. Set realistic geometry and pore parameters.
-3. Run **Calculate -> Bimodal distribution** (recommended before porous/X-ray visualization).
-4. Run **Calculate -> Synthesis recipe (GMA-EDMA)...**
-5. (Optional) Enable **Professional Judgment Mode** for large monolith checks.
-6. Explore **View** and **Animate** menus for 3D and flow behavior.
+### 5) Flow Channels and Flow Panels
 
----
+- Open from `Analysis`:
+  - `2D radial flow`
+  - `2D axial flow`
+  - `3D radial flow`
+- Show/hide flow panels from `View -> Show/Hide flow panels`.
+- Flow panels are interactive and update their own flow visuals/settings.
+- `3D radial flow` is rendered on the solid monolith surface (if X-ray view is on, switch it off first).
 
-## Recipe Dialog Guide
+### 6) Porous, X-ray, and SEM/PyVista Views
 
-In the recipe input window:
+- **Embedded porous/X-ray toggles**
+  - `View -> Show/Hide 3D porous view`
+  - `View -> Show/Hide X-ray porous view`
+  - If unavailable, run `Analysis -> Bimodal distributions` first to build porous mesh data (required for porous/X-ray rendering).
+- **PyVista windows (separate 3D viewers)**
+  - `Tools -> View 3D monolith (PyVista)...` for standalone 3D viewing.
+  - `Tools -> Synthesis recipe (GMA–EDMA)`: generates recipes and suggested procedures for monolith preparation. See below for more. 
+  - `Tools -> Pores from SEM images (PyVista)...` to generate pores from SEM images and open a 3D PyVista view.
+- **SEM-based workflow**
+  - Uses SEM image input to derive pore structure, then opens a PyVista visualization for exploration.
 
-- **Mould fill volume (mL = cm^3)**: total mixture volume.
-- **Target avg. pore size (um), optional**
-- **Target porosity (%), optional**
-- **Atmosphere**: N2 or Air
-- **Optimization bias**:
-  - **Balanced**: compromise between pore-size and porosity targets.
-  - **Porosity priority**: favors matching porosity target.
-  - **Pore size priority**: favors matching pore-size target.
-- **Use active monolith** button:
-  - Auto-fills volume, pore size, and porosity from active monolith.
 
-If no active monolith exists, the app reminds you to create/select one first.
+## Recipe Tool in 30 Seconds
+In `Tools -> Synthesis recipe (GMA–EDMA)`: 
+- Set mould volume.
+- Optionally set pore-size and/or porosity targets.
+- Pick atmosphere (`N2` or `Air`).
+- Choose optimization bias:
+  - `Balanced`
+  - `Porosity priority`
+  - `Pore size priority`
+- Use `Use active monolith` to auto-fill values when available.
 
-### Flexible recipe mode (optional)
+Results report polymerization temperature and polymerization (reaction) time, with assumptions and safety-oriented notes.
 
-1. Install RDKit, e.g. `pip install -r requirements_recipe_flexible.txt`.
-2. In the recipe dialog, choose **Flexible (HSP from .mol / .sdf / .cml)**.
-3. Add one or more monomer files and porogen files, set volume fractions **within each phase** (they are renormalized), and optional crosslinker fraction / viscosity ratio.
-4. Read the **feasibility** and **explanation** blocks in the results: they summarize Ra, modifiers, and limitations.
+## Flexible Recipe Mode (Optional)
 
----
+Use this if you want to screen custom chemistries instead of fixed GMA-EDMA inputs.
 
-## Recipe Output Notes
+1. Open the recipe dialog and select flexible mode.
+2. Load monomer/porogen structure files and set phase volume fractions.
+3. Review feasibility/explanation notes in results.
 
-- **Polymerization temperature** is constrained to a practical process window.
-- **Polymerization (reaction) time** is reported as hold time at set temperature.
-- The time estimate assumes reasonably uniform heating in the mould.
-- Adiabatic temperature-rise notes are displayed with a stated conversion assumption.
-- For large monoliths, extra heat-management guidance is shown.
+If flexible mode is unavailable in your installed app, contact the app provider/build maintainer for an edition that includes RDKit support.
 
----
+Note: flexible mode is a theory-informed screening aid, not a lab guarantee.
 
-## Professional Judgment Mode (Recipe Window)
 
-For large monoliths (>20 mL):
+## Key Files
 
-- Presents heat/wall precaution options (dual heating, dual cooling, thin walls).
-- Window can enforce precaution selection before proceeding.
-- Includes judgment summary and warnings.
+- `Methacrylate monolith simulator.exe` - launcher/entrypoint used for the app
 
-Neutral mode remains informational-only (no enforcement).
-
----
-
-## Visualization Notes
-
-- **X-ray porous view** requires porous mesh data.
-  - Run **Calculate -> Bimodal distribution** first.
-- During heavy resizing/dragging, redraws may be temporarily throttled for smoother UI.
-
----
+- Console-based fall back in case the user interface (GUI) fails to launch: 'Monolith simulator.py' 
 
 ## Troubleshooting
 
-- **No active monolith** errors:
-  - Create/select a monolith first from **Objects**.
-- **X-ray option does nothing**:
-  - Ensure bimodal distribution has been calculated.
-- **Custom cursor not visible where expected**:
-  - It is intentionally disabled in UI chrome zones (menu/title/edges) to preserve native window interactions.
-- **Values seem like compromises**:
-  - If both porosity and pore-size targets are set, adjust **Optimization bias**.
+- **No active monolith**: create one first in `Build -> Methacrylate monolith...`.
+- **Flow/porous features are disabled**: ensure a monolith is active and porosity is greater than 0.
+- **X-ray or 3D porous view not updating**: run `Analysis -> Bimodal distributions` first (required).
+- **App does not start**: reinstall the app, then launch again from Start menu.
+- **Feature missing (for example flexible mode)**: your installed build may not include optional components.
+- **Mechanical graph export disabled**: open a graph first using the toolbar `Graphs` button.
 
----
+## Safety and Model Scope
 
-## Files
-
-- `Monolith_GUI.py` - main Tkinter application
-- `monolith_recipe.py` - recipe and risk logic
-- `monolith_3d.py` - 3D geometry/porous generation/visualization
-- `Monolith simulator.py` - console-oriented model script (fallback mode if GUI fails or behaves unexpectedly)
-
-## Console Fallback
-
-If the GUI fails to open, freezes, or behaves unexpectedly on your system, use:
-
-- `Monolith simulator.py`
-
-This script provides a console-based fallback path for running core model calculations and reviewing results without the graphical interface.
-
-## Dependencies (for EXE packaging)
-
-For packaging this project with `auto-py-to-exe` / PyInstaller, install:
-
-- Required
-  - `numpy`
-  - `matplotlib`
-  - `Pillow`
-- Needed for 3D monolith windows
-  - `pyvista`
-- Optional but recommended (better SEM smoothing/morphology fallbacks)
-  - `scipy`
-
-Notes:
-
-- `tkinter` is part of standard Python on Windows installers (no pip package needed).
-- `auto-py-to-exe` is a packaging tool (development dependency), not a runtime dependency.
-- `pyinstaller` is installed automatically with `auto-py-to-exe` in most setups.
-
-Suggested install command:
-
-`pip install numpy matplotlib Pillow pyvista scipy auto-py-to-exe`
-
-## Logging + auto-cleanup (6 months)
-
-You do **not** need an external logging package; use Python stdlib `logging`.
-
-Recommended approach:
-
-- Write logs to a dedicated folder (e.g. `%LOCALAPPDATA%/MethacrylateMonolithSimulator/logs`).
-- Rotate daily with `TimedRotatingFileHandler`.
-- Keep `backupCount=180` (about 6 months), so older logs are deleted automatically.
-
-Example:
-
-```python
-import logging
-import os
-from logging.handlers import TimedRotatingFileHandler
-
-def setup_app_logger():
-    log_dir = os.path.join(os.getenv("LOCALAPPDATA", "."), "MethacrylateMonolithSimulator", "logs")
-    os.makedirs(log_dir, exist_ok=True)
-    log_path = os.path.join(log_dir, "app.log")
-
-    logger = logging.getLogger("monolith_app")
-    logger.setLevel(logging.INFO)
-
-    handler = TimedRotatingFileHandler(
-        log_path,
-        when="D",          # rotate daily
-        interval=1,
-        backupCount=180,   # keep ~6 months
-        encoding="utf-8",
-    )
-    fmt = logging.Formatter("%(asctime)s | %(levelname)s | %(name)s | %(message)s")
-    handler.setFormatter(fmt)
-    logger.addHandler(handler)
-    return logger
-```
-
-Log examples:
-
-- app startup/shutdown
-- recipe generation request + success/failure
-- 3D view load errors (missing PyVista, missing files)
-- cursor/SEM module load warnings
-
-Current implementation status:
-
-- The GUI now writes logs automatically to:
-  - `%LOCALAPPDATA%\MethacrylateMonolithSimulator\logs\app.log`
-- Rotation/retention:
-  - daily rotation
-  - keeps ~180 backups (~6 months), then older logs are deleted automatically
-- Logged events include:
-  - app startup/shutdown
-  - recipe generation start/success/failure
-  - unhandled Tk callback exceptions (with traceback)
+This simulator provides useful engineering-style estimates. Final process choices still need experimental validation, SDS review, and local safety procedures.
+The simulator is built on assumptions and mathematical models for methacrylate monolith systems and may not transfer reliably to other monolith chemistries.
+Local regulations of waste handling should always be followed.
 
 Simulator scope (for user-facing release context)
 -----------------------------------------------
@@ -256,3 +187,23 @@ Svec, F., & Frechet, J. M. J. (1995). Temperature, a simple and efficient tool f
 
 Yang, C., Wei, Y., Zhang, Q., Zhang, W., Li, T., Hu, H., & Zhang, Y. (2005). Preparation and evaluation of a large-volume radial flow monolithic column. Talanta, 66(2), 472-478. https://doi.org/10.1016/j.talanta.2004.09.027
 
+4) ATTRIBUTIONS
+----------------
+Finish page image (Setup exe):
+Title: A three-headed eagle in a crowned alchemical flask (from Splendor Solis tradition)
+Source: Wellcome Collection via Wikimedia Commons
+URL: https://commons.wikimedia.org/wiki/File:A_three-headed_eagle_in_a_crowned_alchemical_flask,_represen_Wellcome_V0025636.jpg
+Author: Wellcome Collection
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+6) NOTES FOR USERS
+-------------------
+- This file is intended as a plain-text, Notepad-friendly reference list (APA 7th).
+- Companion documents in the same folder:
+  - README.md ............... feature overview, menus, dependencies, logging summary
+  - USER_GUIDE.md ............... in-depth introduction of features and output interpretation
+- The simulator behavior is unchanged by this document.
+- Trial/permanent access control is handled separately by edition markers and
+  runtime checks (see trial_guard.py).
+- The companion documents (including references and attributions) can be accessed under the "Help" menu on the program GUI (i.e., user interface). 
